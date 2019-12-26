@@ -19,33 +19,15 @@ namespace OrderMaking.Mobile.Views
     public partial class ItemsPage : ContentPage
     {
         ItemsViewModel viewModel;
-        ZXingScannerPage scanPage = new ZXingScannerPage();
+        ZXingScannerPage scanPage;
 
         public ItemsPage()
         {
             InitializeComponent();
             BindingContext = viewModel = new ItemsViewModel();
 
-            try
-            {
-                var httpClient = new HttpClient();
 
-                var uri = new Uri($"{Constants.BaseUri}/Category");
-
-                var response = httpClient.GetAsync(uri).Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    var content = response.Content.ReadAsStringAsync();
-                    var cats = JsonConvert.DeserializeObject<List<Category>>(content.Result);
-                    viewModel.Categories = new ObservableCollection<Category>(cats);
-                }
-            }
-            catch (Exception)
-            {
-
-                DisplayAlert("Scan Item", "Could not Establish the connection to the server", "Ok");
-            }
-
+            LoadCategory();
             //var cats = new List<Category>()
             //{
             //    new Category { Id = 1, Name = "Soft Drinks 500ml" },
@@ -73,8 +55,7 @@ namespace OrderMaking.Mobile.Views
                 return;
             }
 
-            //DidScan("11772");
-
+            scanPage = new ZXingScannerPage();
             await Navigation.PushModalAsync(new NavigationPage(scanPage));
 
             scanPage.OnScanResult += (result) =>
@@ -91,6 +72,28 @@ namespace OrderMaking.Mobile.Views
                     //await DisplayAlert("Scanned Barcode", result.Text, "OK");
                 });
             };
+        }
+
+        async void LoadCategory()
+        {
+            try
+            {
+                var httpClient = new HttpClient();
+
+                var uri = new Uri($"{Constants.BaseUri}/Category");
+
+                var response = httpClient.GetAsync(uri).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = response.Content.ReadAsStringAsync();
+                    var cats = JsonConvert.DeserializeObject<List<Category>>(content.Result);
+                    viewModel.Categories = new ObservableCollection<Category>(cats);
+                }
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("Scan Item", "Could not establish the connection to the server!", "Ok");
+            }
         }
 
         protected override void OnAppearing()
@@ -112,7 +115,6 @@ namespace OrderMaking.Mobile.Views
         {
             try
             {
-                //var url = new Uri("http://localhost:8080/API/Cart");
                 var url = new Uri($"{Constants.BaseUri}/Cart");
 
                 var shoppingCart = new ShoppingCart

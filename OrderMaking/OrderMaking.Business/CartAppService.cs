@@ -1,6 +1,8 @@
 ﻿using OrderMaking.Data;
 using OrderMaking.Models;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 
 namespace OrderMaking.Business
 {
@@ -26,6 +28,15 @@ namespace OrderMaking.Business
                     shoppingCart.ProductId = product.Id;
                     repository.Insert(shoppingCart);
                     repository.Save();
+                }
+                else
+                {
+                    //var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
+                    //{
+                    //    Content = new StringContent(string.Format("No product with ID = {0}", shoppingCart.Barcode),
+                    //    ReasonPhrase = "Product ID Not Found"
+                    //};
+                    //throw new HttpResponseException(resp);
                 }
             }
             else if (shoppingCart.ProductId > 0)
