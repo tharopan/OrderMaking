@@ -11,30 +11,33 @@ namespace OrderMaking.ConsoleApp
 {
     public class Program
     {
-        //    HttpSelfHostConfiguration config = new HttpSelfHostConfiguration("http://localhost:8080");
-
-
-        //    config.Routes.MapHttpRoute(
-        //"API Default", "api/{controller}/{id}", 
-        //new { id = RouteParameter.Optional
-        //});
-
-        //    using (HttpSelfHostServer server = new HttpSelfHostServer(config))
-        //    {
-        //        server.OpenAsync().Wait();
-        //        Console.WriteLine("Press Enter to quit.");
-        //        Console.ReadLine();
-        //    }
-
         static void Main(string[] args)
-        {
-            string domainAddress = "Http://192.168.0.28:8081/";
 
-            using (WebApp.Start(url: domainAddress))
+        {
+            //string domainAddress = "Http://192.168.0.28:8081/";
+
+            //using (WebApp.Start(url: domainAddress))
+            //{
+            //    Console.WriteLine("Service Hosted " + domainAddress);
+            //    System.Threading.Thread.Sleep(-1);
+            //}
+
+            //var config = new HttpSelfHostConfiguration("Http://192.168.0.28:8081/");
+            var config = new HttpSelfHostConfiguration("Http://localhost:8081/");
+
+
+            config.Routes.MapHttpRoute(
+                "API Default", "api/{controller}/{id}",
+                new { id = RouteParameter.Optional });
+
+            using (HttpSelfHostServer server = new HttpSelfHostServer(config))
             {
-                Console.WriteLine("Service Hosted " + domainAddress);
-                System.Threading.Thread.Sleep(-1);
+                server.OpenAsync().Wait();
+                Console.WriteLine("Press Enter to quit.");
+                Console.ReadLine();
             }
+
+            Console.ReadKey();
         }
     }
 }
