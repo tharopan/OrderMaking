@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderMaking.Mobile", "Order
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderMaking.ConsoleApp", "OrderMaking.ConsoleApp\OrderMaking.ConsoleApp.csproj", "{3D6E2B1F-ECE4-47D9-BB40-B0249B9C86A2}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "OrderMaking.ConsoleAppSetUp", "OrderMaking.ConsoleAppSetUp\OrderMaking.ConsoleAppSetUp.vdproj", "{02C67901-3A23-463B-8703-ADE77CB0047A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,6 +131,12 @@ Global
 		{3D6E2B1F-ECE4-47D9-BB40-B0249B9C86A2}.Release|iPhone.Build.0 = Release|Any CPU
 		{3D6E2B1F-ECE4-47D9-BB40-B0249B9C86A2}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{3D6E2B1F-ECE4-47D9-BB40-B0249B9C86A2}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{02C67901-3A23-463B-8703-ADE77CB0047A}.Debug|Any CPU.ActiveCfg = Debug
+		{02C67901-3A23-463B-8703-ADE77CB0047A}.Debug|iPhone.ActiveCfg = Debug
+		{02C67901-3A23-463B-8703-ADE77CB0047A}.Debug|iPhoneSimulator.ActiveCfg = Debug
+		{02C67901-3A23-463B-8703-ADE77CB0047A}.Release|Any CPU.ActiveCfg = Release
+		{02C67901-3A23-463B-8703-ADE77CB0047A}.Release|iPhone.ActiveCfg = Release
+		{02C67901-3A23-463B-8703-ADE77CB0047A}.Release|iPhoneSimulator.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

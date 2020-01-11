@@ -107,8 +107,8 @@ namespace OrderMaking.Mobile.Views
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-
-            scanPage.IsScanning = false;
+            if(scanPage != null)
+                scanPage.IsScanning = false;
         }
 
         public async Task DidScan(string barcode)
