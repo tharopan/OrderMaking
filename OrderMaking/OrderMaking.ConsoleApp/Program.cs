@@ -42,7 +42,9 @@ namespace OrderMaking.ConsoleApp
             //    Stop();
             //}
 
-            string domainAddress = "Http://192.168.0.28:8081/";
+            //string domainAddress = "Http://192.168.0.28:8081/";
+
+            string domainAddress = "Http://192.168.99.3:8081/";
 
             //using (WebApp.Start(url: domainAddress))
             //{
