@@ -78,7 +78,7 @@ namespace OrderMaking.Mobile.Views
         {
             try
             {
-                var httpClient = new HttpClient();
+                var httpClient = new HttpClient() { Timeout = TimeSpan.FromMinutes(2)};
 
                 var uri = new Uri($"{Constants.BaseUri}/Category");
 
@@ -124,7 +124,7 @@ namespace OrderMaking.Mobile.Views
                     OrderDate = DateTime.UtcNow
                 };
 
-                var httpClient = new HttpClient();
+                var httpClient = new HttpClient() { Timeout = TimeSpan.FromMinutes(2) };
 
                 var json = JsonConvert.SerializeObject(shoppingCart);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");

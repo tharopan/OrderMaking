@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Net.Http;
 using System.Text;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace OrderMaking.Mobile.Views
 {
@@ -21,19 +20,28 @@ namespace OrderMaking.Mobile.Views
         async void GenerateOrder_Clicked(object sender, EventArgs e)
         {
             var url = new Uri($"{Constants.BaseUri}/Function");
-
-            var order = new { };
-
-            var httpClient = new HttpClient();
-
-            var json = JsonConvert.SerializeObject(order);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            HttpResponseMessage response = httpClient.PostAsync(url, content).Result;
-
-            if (response.IsSuccessStatusCode)
+            try
             {
-                DisplayAlert("Generate Order", "Order has been placed, Please check your email", "OK");
+
+                var order = new { };
+
+                var httpClient = new HttpClient() { Timeout = TimeSpan.FromMinutes(2) };
+
+
+                var json = JsonConvert.SerializeObject(order);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = httpClient.PostAsync(url, content).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    DisplayAlert("Generate Order", "Order has been placed, Please check your email", "OK");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                DisplayAlert("Generate Order", "Generate Order failed, Please copy the file manually.", "OK");
             }
         }
     }
