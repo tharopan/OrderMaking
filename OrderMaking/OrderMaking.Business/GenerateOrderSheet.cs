@@ -21,6 +21,54 @@ namespace OrderMaking.Business
             repository = new Repository<ShoppingCart>();
         }
 
+        public void GenerateCigarettes()
+        {
+            var rootPath = $@"C:\order\cigarettes\{DateTime.UtcNow.ToString("MMddyyyy")}";
+            var fileList = new List<string>();
+            var shoppingCarts = repository.Get(null, null, "Product, Category");
+
+            if (shoppingCarts != null && shoppingCarts.Any())
+            {
+                var cigaretteList = shoppingCarts.Where(x => x.Category != null && x.Category.Name.ToLower() == "Cigarettes".ToLower());
+
+                if (cigaretteList != null && cigaretteList.Any())
+                {
+                    System.IO.Directory.CreateDirectory(rootPath);
+
+                    var groupedList = cigaretteList.ToList().GroupBy(x => x.Category.Name);
+
+                    foreach (var groupedItem in groupedList)
+                    {
+                        var orderList = new List<ShoppingCartFlat>();
+                        string fileName = groupedItem.Key;
+
+                        foreach (var item in groupedItem)
+                        {
+                            orderList.Add(new ShoppingCartFlat()
+                            {
+                                //CustomOrder = item.Product.CustomOrder,
+                                OrderDate = item.OrderDate,
+                                ProductPrice = item.Product.Price,
+                                //ProductCategoryId = groupedItem.Key,
+                                ProductCategoryName = groupedItem.Key,
+                                ProductId = item.Product.Id,
+                                ProductName = item.Product.Description,
+                                ProductSize = item.Product.SizeGroup,
+                                Barcode = item.Barcode
+                            });
+                        }
+                        var file = $"{rootPath}\\{fileName}.csv";
+                        fileList.Add(file);
+                        GenerateExcel(file, orderList);
+
+                        orderList = new List<ShoppingCartFlat>();
+                    }
+
+                    SendMail(fileList);
+                }
+            }
+        }
+
         public void GenerateOrder()
         {
             try
@@ -51,7 +99,8 @@ namespace OrderMaking.Business
                                 ProductCategoryName = groupedItem.Key,
                                 ProductId = item.Product.Id,
                                 ProductName = item.Product.Description,
-                                ProductSize = item.Product.SizeGroup
+                                ProductSize = item.Product.SizeGroup,
+                                Barcode = item.Barcode
                             });
                         }
                         var file = $"{rootPath}\\{fileName}.csv";
@@ -81,11 +130,11 @@ namespace OrderMaking.Business
             string delimiter = ",";
             StringBuilder sb = new StringBuilder();
 
-            string clientHeader = $"\"Product Name\",\"Size\",\"Selling Price\",\"Least Price\",\"Least Price At\"";
+            string clientHeader = $"\"Product Name\",\"Size\",\"Selling Price\",\"Least Price\",\"Least Price At\", \"Barcode\"";
             sb.AppendLine(clientHeader);
             foreach (var item in orderList)
             {
-                sb.AppendLine($"{item.ProductName }{delimiter }{ item.ProductSize}{delimiter}{item.ProductPrice} {delimiter} {string.Empty} {delimiter}{string.Empty}");
+                sb.AppendLine($"{item.ProductName }{delimiter }{ item.ProductSize}{delimiter}{item.ProductPrice} {delimiter} {string.Empty} {delimiter}{string.Empty}{delimiter}{item.Barcode}");
             }
 
             File.WriteAllText(file, sb.ToString());
@@ -112,6 +161,7 @@ namespace OrderMaking.Business
             }
 
             mail.To.Add(new MailAddress("tharopan@hotmail.com"));
+            mail.To.Add(new MailAddress("ravi.chandran69@outlook.com"));
 
             foreach (var file in files)
             {
