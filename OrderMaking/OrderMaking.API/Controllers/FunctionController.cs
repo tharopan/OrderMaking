@@ -22,6 +22,10 @@ namespace OrderMaking.API.Controllers
                 {
                     orderSheetAppService.GenerateCigarettes();
                 }
+                else
+                {
+                    orderSheetAppService.GenerateOrder();
+                }
             }
             else
             {

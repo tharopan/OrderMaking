@@ -76,6 +76,7 @@ namespace OrderMaking.Business
                 var rootPath = $@"C:\order\{DateTime.UtcNow.ToString("MMddyyyy")}";
                 var fileList = new List<string>();
                 var shoppingCarts = repository.Get(null, null, "Product, Category");
+                var mergedOrderList = new List<ShoppingCartFlat>();
 
                 if (shoppingCarts != null && shoppingCarts.Any())
                 {
@@ -87,6 +88,7 @@ namespace OrderMaking.Business
                     {
                         var orderList = new List<ShoppingCartFlat>();
                         string fileName = groupedItem.Key;
+                        mergedOrderList.Add(new ShoppingCartFlat() { ProductName = groupedItem.Key });
 
                         foreach (var item in groupedItem)
                         {
@@ -103,13 +105,17 @@ namespace OrderMaking.Business
                                 Barcode = item.Barcode
                             });
                         }
-                        var file = $"{rootPath}\\{fileName}.csv";
+
+                        var file = $"{rootPath}\\{groupedItem.Key}.csv";
                         fileList.Add(file);
                         GenerateExcel(file, orderList);
-
+                        mergedOrderList.AddRange(orderList);
+                        mergedOrderList.Add(new ShoppingCartFlat() { });
+                        mergedOrderList.Add(new ShoppingCartFlat() { ProductName = groupedItem.Key });
                         orderList = new List<ShoppingCartFlat>();
                     }
 
+                    GenerateExcel($"{rootPath}\\MergedList.csv", mergedOrderList);
                     SendMail(fileList);
                     MoveCompleted();
                 }

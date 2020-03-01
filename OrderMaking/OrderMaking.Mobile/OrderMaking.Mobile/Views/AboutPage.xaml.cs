@@ -23,7 +23,7 @@ namespace OrderMaking.Mobile.Views
             try
             {
 
-                var order = new { OderList = "Groceries" };
+                var order = new OrderType { OderList = "Groceries" };
 
                 var httpClient = new HttpClient() { Timeout = TimeSpan.FromMinutes(2) };
 
@@ -51,7 +51,7 @@ namespace OrderMaking.Mobile.Views
             try
             {
 
-                var order = new { OderList = "Cigarettes" };
+                var order = new OrderType { OderList = "Cigarettes" };
 
                 var httpClient = new HttpClient() { Timeout = TimeSpan.FromMinutes(2) };
 
@@ -72,5 +72,10 @@ namespace OrderMaking.Mobile.Views
                 DisplayAlert("Generate Order", "Generate Order failed, Please copy the file manually.", "OK");
             }
         }
+    }
+
+    public class OrderType
+    {
+        public string OderList { get; set; }
     }
 }
