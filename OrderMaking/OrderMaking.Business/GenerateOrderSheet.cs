@@ -111,7 +111,7 @@ namespace OrderMaking.Business
                         GenerateExcel(file, orderList);
                         mergedOrderList.AddRange(orderList);
                         mergedOrderList.Add(new ShoppingCartFlat() { });
-                        mergedOrderList.Add(new ShoppingCartFlat() { ProductName = groupedItem.Key });
+                        //mergedOrderList.Add(new ShoppingCartFlat() { ProductName = groupedItem.Key });
                         orderList = new List<ShoppingCartFlat>();
                     }
 
