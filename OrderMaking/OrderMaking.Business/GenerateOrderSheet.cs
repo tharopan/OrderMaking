@@ -82,7 +82,7 @@ namespace OrderMaking.Business
                 {
                     System.IO.Directory.CreateDirectory(rootPath);
 
-                    var groupedList = shoppingCarts.ToList().GroupBy(x => x.Category.Name);
+                    var groupedList = shoppingCarts.Distinct().ToList().GroupBy(x => x.Category.Name);
 
                     foreach (var groupedItem in groupedList)
                     {
@@ -107,7 +107,7 @@ namespace OrderMaking.Business
                         }
 
                         var file = $"{rootPath}\\{groupedItem.Key}.csv";
-                        fileList.Add(file);
+                        //fileList.Add(file);
                         GenerateExcel(file, orderList);
                         mergedOrderList.AddRange(orderList);
                         mergedOrderList.Add(new ShoppingCartFlat() { });
@@ -115,7 +115,9 @@ namespace OrderMaking.Business
                         orderList = new List<ShoppingCartFlat>();
                     }
 
-                    GenerateExcel($"{rootPath}\\MergedList.csv", mergedOrderList);
+                    var mergeFile = $"{rootPath}\\MergedList.csv";
+                    GenerateExcel(mergeFile, mergedOrderList);
+                    fileList.Add(mergeFile);
                     SendMail(fileList);
                     MoveCompleted();
                 }
@@ -151,8 +153,8 @@ namespace OrderMaking.Business
             MailMessage mail = new MailMessage()
             {
                 From = new MailAddress("nishalocalconvenientstore@gmail.com", "Nisha Local Convenient Store"),
-                Subject = $"Order list for {DateTime.UtcNow.ToShortDateString()}",
-                Body = "<h1>Hi, <br> Find the attached order list</h1>",
+                Subject = $"Shopping list for {DateTime.UtcNow.ToShortDateString()}",
+                Body = "<h1>Hi, <br> Find the attached shopping list</h1>",
                 IsBodyHtml = true,
             };
 

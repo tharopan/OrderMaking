@@ -7,7 +7,7 @@ namespace OrderMaking.API.Controllers
 {
     public class FunctionController : ApiController
     {
-        GenerateOrderSheet orderSheetAppService;
+        GenerateOrderSheet orderSheetAppService;        
 
         public FunctionController()
         {

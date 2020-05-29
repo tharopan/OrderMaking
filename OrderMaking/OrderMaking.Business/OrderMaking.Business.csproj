@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="HtmlRenderer.PdfSharp" Version="1.5.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\OrderMaking.Data\OrderMaking.Data.csproj" />
     <ProjectReference Include="..\OrderMaking.Models\OrderMaking.Models.csproj" />
   </ItemGroup>

@@ -20,6 +20,8 @@ namespace OrderMaking.Data
 
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
 
+        public DbSet<LabelItem> LabelItems { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //modelBuilder.Entity<DeprecatedProduct>().HasKey<int>(s => s.StudentKey);
