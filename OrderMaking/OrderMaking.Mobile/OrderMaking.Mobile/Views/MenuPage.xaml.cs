@@ -1,9 +1,7 @@
 ﻿using OrderMaking.Mobile.Models;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace OrderMaking.Mobile.Views
 {
@@ -21,7 +19,8 @@ namespace OrderMaking.Mobile.Views
             menuItems = new List<HomeMenuItem>
             {
                 new HomeMenuItem {Id = MenuItemType.ScanOrder, Title="Make an Order" },
-                new HomeMenuItem {Id = MenuItemType.GenerateList, Title="Place Order" }
+                new HomeMenuItem {Id = MenuItemType.GenerateList, Title="Place Order" },
+                new HomeMenuItem {Id = MenuItemType.ScanLabelItems, Title="Scan Label Items" }
             };
 
             ListViewMenu.ItemsSource = menuItems;

@@ -80,7 +80,12 @@
                         Clicked="GenerateCigarettes_Clicked"
                         BackgroundColor="{StaticResource Primary}"
                         TextColor="White" />
-                
+
+                <Button Margin="0,10,0,0" Text="Print Labels"
+                        Clicked="PrintLabel_Clicked"
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="White" />
+
             </StackLayout>
         </ScrollView>
     </Grid>

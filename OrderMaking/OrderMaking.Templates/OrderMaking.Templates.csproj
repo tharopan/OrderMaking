@@ -1,15 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="LabelItemTemplate.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>LabelItemTemplate.tt</DependentUpon>
-    </None>
+    <ProjectReference Include="..\OrderMaking.Models\OrderMaking.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,7 +22,7 @@
 
   <ItemGroup>
     <None Update="LabelItemTemplate.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
+      <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>LabelItemTemplate.cs</LastGenOutput>
     </None>
   </ItemGroup>

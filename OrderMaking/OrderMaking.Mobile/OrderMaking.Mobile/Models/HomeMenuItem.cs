@@ -7,7 +7,8 @@ namespace OrderMaking.Mobile.Models
     public enum MenuItemType
     {
         ScanOrder,
-        GenerateList
+        GenerateList,
+        ScanLabelItems
     }
     public class HomeMenuItem
     {

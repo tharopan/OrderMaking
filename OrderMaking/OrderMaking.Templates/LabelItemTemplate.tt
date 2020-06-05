@@ -1,7 +1,67 @@
-﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+﻿<#@ template language="C#" #>
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
-<#@ output extension=".cs" #>
+<#@ import namespace="OrderMaking.Models" #>
+<#@ parameter name="LabelItems" type="System.Collections.Generic.IList<OrderMaking.Models.LabelItem>" #>
 
+<html>
+
+	#container {
+	  background-color: red;
+	  overflow: hidden;
+	  width: 261px;
+	  height: 144px;
+	}
+
+	#inner {
+	  overflow: hidden;
+	  width: 2000px;
+	}
+
+	.child {
+	  float: left;
+	  background-color: blue;
+	  width: 50px;
+	  height: 50px;
+	}
+
+	.price{
+	  width: 109px;
+	  height: 56px;
+	}
+
+	<# 
+		int index = 1;
+	#>
+	<body>
+		<# if(LabelItems != null)
+		{
+			foreach (LabelItem labelItem in LabelItems)  { #>
+				<# 
+				if(idex % 3 = 1) {
+				#>
+				<div class="row">
+				<# } #>
+				<div id="container">
+				  <div id="inner">
+					<div class="child">
+						<div class="name"><#= labelItem.Product.Description #></div>
+						<div class="barcode"><img src="data:image/jpeg;base64 <#= labelItem.Product.BarCodeImageBase64 #>"/></div>
+						<div class="price">lableItem.Product.Price</div>
+					</div>				
+				  </div>
+				</div>			
+				<# 
+				if(idex % 3 = 1) {
+				#>
+				</div>
+				<# } #>
+			<#
+				index++;
+			} 
+		} #>
+		<h1></h1>
+	</body>
+</html>

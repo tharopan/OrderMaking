@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OrderMaking.Models
 {
@@ -23,5 +20,8 @@ namespace OrderMaking.Models
         public decimal Price { get; set; }
 
         public string SizeGroup { get; set; }
+
+        [NotMapped]
+        public string BarCodeImageBase64 { get; set; }
     }
 }

@@ -72,6 +72,33 @@ namespace OrderMaking.Mobile.Views
                 DisplayAlert("Generate Order", "Generate Order failed, Please copy the file manually.", "OK");
             }
         }
+
+        async void PrintLabel_Clicked(object sender, EventArgs e)
+        {
+            var url = new Uri($"{Constants.BaseUri}/PrintFunction/");
+            try
+            {
+
+                var order = new OrderType { };
+
+                var httpClient = new HttpClient() { Timeout = TimeSpan.FromMinutes(2) };
+
+
+                var json = JsonConvert.SerializeObject(order);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = httpClient.PostAsync(url, content).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    DisplayAlert("Print Labels", "Print labels has been completed", "OK");
+                }
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("Generate Order", "Print labels failed.", "OK");
+            }
+        }
     }
 
     public class OrderType
