@@ -44,7 +44,6 @@ namespace OrderMaking.Mobile.Views
             };
         }
 
-
         async void RemoveItem_Clicked(object sender, EventArgs e)
         {
             scanPage = new ZXingScannerPage();
@@ -89,6 +88,33 @@ namespace OrderMaking.Mobile.Views
             }
         }
 
+        async void PrintLabel_Clicked(object sender, EventArgs e)
+        {
+            var url = new Uri($"{Constants.BaseUri}/PrintFunction/");
+            try
+            {
+
+                var order = new OrderType { };
+
+                var httpClient = new HttpClient() { Timeout = TimeSpan.FromMinutes(2) };
+
+
+                var json = JsonConvert.SerializeObject(order);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = httpClient.PostAsync(url, content).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    DisplayAlert("Print Labels", "Print labels has been completed", "OK");
+                }
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("Generate Order", "Print labels failed.", "OK");
+            }
+        }
+
         public async Task DidAddScan(string barcode)
         {
             try
@@ -128,7 +154,10 @@ namespace OrderMaking.Mobile.Views
 
                 var httpClient = new HttpClient() { Timeout = TimeSpan.FromMinutes(2) };
 
-                HttpResponseMessage response = httpClient.DeleteAsync($"{url}/barcode").Result;
+                var json = JsonConvert.SerializeObject(new { Barcode = barcode});
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = httpClient.DeleteAsync($"{url}?barcode={barcode}").Result;
 
                 if (response.IsSuccessStatusCode)
                 {

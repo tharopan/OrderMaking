@@ -24,16 +24,16 @@ namespace OrderMaking.Business
                 if (product != null)
                 {
                     var existingShoppingCart = repository.Get(
-                        x => x.ProductId == product.Id && 
+                        x => x.ProductId == product.Id &&
                         x.CategoryId == shoppingCart.CategoryId
                         ).FirstOrDefault();
 
-                    if(existingShoppingCart == null)
+                    if (existingShoppingCart == null)
                     {
                         shoppingCart.ProductId = product.Id;
                         repository.Insert(shoppingCart);
                         repository.Save();
-                    }                    
+                    }
                 }
                 else
                 {
@@ -57,7 +57,6 @@ namespace OrderMaking.Business
 
                     if (existingShoppingCart == null)
                     {
-
                         shoppingCart.ProductId = product.Id;
                         repository.Insert(shoppingCart);
                         repository.Save();
@@ -66,19 +65,16 @@ namespace OrderMaking.Business
             }
         }
 
-        public void Remove(ShoppingCart shoppingCart)
+        public void Remove(string barcode)
         {
-            DeprecatedProduct product;
-            if (!string.IsNullOrEmpty(shoppingCart.Barcode))
+            if (!string.IsNullOrEmpty(barcode))
             {
-                product = productRepository.Get(x => x.BarCode == shoppingCart.Barcode).FirstOrDefault();
-                if (product != null)
+                var shopppingCartTobeRemove = repository.Get(x => x.Product.BarCode == barcode).FirstOrDefault();
+                if (shopppingCartTobeRemove != null)
                 {
-                    shoppingCart.ProductId = product.Id;
-                    var shopppingCartTobeRemove = repository.Get(x => x.ProductId == product.Id).FirstOrDefault();
                     repository.Delete(shopppingCartTobeRemove);
                     repository.Save();
-                }               
+                }
             }
         }
     }

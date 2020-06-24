@@ -20,7 +20,8 @@ namespace OrderMaking.Mobile.Views
             {
                 new HomeMenuItem {Id = MenuItemType.ScanOrder, Title="Make an Order" },
                 new HomeMenuItem {Id = MenuItemType.GenerateList, Title="Place Order" },
-                new HomeMenuItem {Id = MenuItemType.ScanLabelItems, Title="Scan Label Items" }
+                new HomeMenuItem {Id = MenuItemType.ScanLabelItems, Title="Scan Label Items" },
+                new HomeMenuItem {Id = MenuItemType.Functions, Title="Internal Functions" }
             };
 
             ListViewMenu.ItemsSource = menuItems;

@@ -8,8 +8,10 @@ namespace OrderMaking.Mobile.Models
     {
         ScanOrder,
         GenerateList,
-        ScanLabelItems
+        ScanLabelItems,
+        Functions
     }
+
     public class HomeMenuItem
     {
         public MenuItemType Id { get; set; }

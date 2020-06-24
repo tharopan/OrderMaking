@@ -76,12 +76,7 @@ namespace OrderMaking.Mobile.Views
 
         async void RemoveItem_Clicked(object sender, EventArgs e)
         {
-            if (viewModel.SelectedCategory == null)
-            {
-                DisplayAlert("Select Category", "Please Select Category", "OK");
-                return;
-            }
-
+            
             scanPage = new ZXingScannerPage();
             await Navigation.PushModalAsync(new NavigationPage(scanPage));
 
@@ -95,7 +90,7 @@ namespace OrderMaking.Mobile.Views
                 {
                     //await Navigation.PopAsync();
                     await Navigation.PopModalAsync();
-                    DidScan(result.Text);
+                    DidRemoveScan(result.Text);
                     //await DisplayAlert("Scanned Barcode", result.Text, "OK");
                 });
             };
@@ -168,6 +163,28 @@ namespace OrderMaking.Mobile.Views
                 DisplayAlert("Scanned Barcode", "Error Occured", "OK");
             }
             // This callback is called whenever a barcode is decoded.
+        }
+
+        public async Task DidRemoveScan(string barcode)
+        {
+            try
+            {
+                var url = new Uri($"{Constants.BaseUri}/Cart");
+
+                var httpClient = new HttpClient() { Timeout = TimeSpan.FromMinutes(2) };
+
+                HttpResponseMessage response = httpClient.DeleteAsync($"{url}?barcode={barcode}").Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    DisplayAlert("Scanned Barcode", "Item has been removed", "OK");
+                }
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("Scanned Barcode", "Error Occured", "OK");
+                //throw;
+            }
         }
     }
 }

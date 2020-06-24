@@ -19,10 +19,15 @@
         ItemDisplayBinding="{Binding Name}"
         SelectedItem="{Binding SelectedCategory}" />
 
-        <Button Text="Scan"
+        <Button Text="Add to Cart"
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="Center"
                 Clicked="ScanItem_Clicked" />
+
+        <Button Text="Remove from Cart"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="Center"
+                Clicked="RemoveItem_Clicked" />
 
         <!--<ListView x:Name="ItemsListView"
                 ItemsSource="{Binding Items}"

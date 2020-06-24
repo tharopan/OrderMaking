@@ -10,7 +10,7 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout  Orientation="Vertical" Padding="16,40,16,40" Spacing="10">
             <Button Text="Add"
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="Center"
@@ -25,6 +25,11 @@
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="Center"
                 Clicked="RemoveAllItems_Clicked" />
+
+            <Button Margin="0,10,0,0" Text="Print Labels"
+                        Clicked="PrintLabel_Clicked"
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="White" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

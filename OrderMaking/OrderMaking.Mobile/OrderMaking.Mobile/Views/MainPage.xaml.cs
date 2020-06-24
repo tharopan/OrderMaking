@@ -38,6 +38,9 @@ namespace OrderMaking.Mobile.Views
                     case (int)MenuItemType.ScanLabelItems:
                         MenuPages.Add(id, new NavigationPage(new LableItemPage()));
                         break;
+                    case (int)MenuItemType.Functions:
+                        MenuPages.Add(id, new NavigationPage(new FunctionsPage()));
+                        break;
                 }
             }
 
