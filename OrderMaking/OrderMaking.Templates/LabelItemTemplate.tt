@@ -4,64 +4,103 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="OrderMaking.Models" #>
-<#@ parameter name="LabelItems" type="System.Collections.Generic.IList<OrderMaking.Models.LabelItem>" #>
 
 <html>
+<style type="text/css">		
 
-	#container {
-	  background-color: red;
-	  overflow: hidden;
-	  width: 261px;
-	  height: 144px;
+	body {
+		position: relative;
+		width: 50rem;
+		height: 70rem;
+		margin: 0px;
+		margin-top: 2.8rem;
+		margin-left: 0rem;
+		color: #001028;
+		background: #FFFFFF;
+		font-size: 14px;
 	}
 
-	#inner {
-	  overflow: hidden;
-	  width: 2000px;
+	.row > div{
+		float: left;
+	}
+	
+	.flex-container {
+		padding: 0;
+		margin: 0;
+		list-style: none;
+	}
+	
+	.container {
+		width: 16.6rem;
+		height: 8.91rem;
+		text-align: center;
+		color: white;
+		font-weight: bold;
+		font-size: 4em;
+		text-align: center;
+	}
+	
+	.name {		
+		align-items: center;
+		height: 20px;
+		padding: 7px 0px 14px 0px;
+		font-size: 12px;
+		position: relative;
+	}
+	
+	.name > p {
+		color:black;
+		text-transform: uppercase;
+	}
+	
+	.barcode {
+		margin-top: 6px;
+		position: relative;
+		left: -14%;
+	}
+	
+	.barcode > img {
+		width: 10.6rem;
+		height: 5.9rem;
+	}
+	
+	.price {
+		width: 20mm;
+		height: 10mm;
+		position: relative;
+		margin-top: -75px;
+		margin-left: 48mm;
+	}
+	
+	.price > p {
+		font-size: 20px;
+		color: black;
 	}
 
-	.child {
-	  float: left;
-	  background-color: blue;
-	  width: 50px;
-	  height: 50px;
-	}
+	</style>
 
-	.price{
-	  width: 109px;
-	  height: 56px;
-	}
-
-	<# 
-		int index = 1;
-	#>
 	<body>
-		<# if(LabelItems != null)
+		<div class="flex-container">
+			
+			<# if(LabelItems != null)
 		{
-			foreach (LabelItem labelItem in LabelItems)  { #>
-				<# 
-				if(idex % 3 = 1) {
-				#>
-				<div class="row">
-				<# } #>
-				<div id="container">
-				  <div id="inner">
-					<div class="child">
-						<div class="name"><#= labelItem.Product.Description #></div>
-						<div class="barcode"><img src="data:image/jpeg;base64 <#= labelItem.Product.BarCodeImageBase64 #>"/></div>
-						<div class="price">lableItem.Product.Price</div>
-					</div>				
-				  </div>
-				</div>			
-				<# 
-				if(idex % 3 = 1) {
-				#>
+			int index = 1;
+
+			foreach (LabelItem labelItem in LabelItems) 
+			{ #>
+				<# if(index % 3 == 1) { #> <div class="row"> <# }#>
+ 
+			<div class="container">	
+					<div class="name"><p><#= labelItem.Product.Description #></p></div>
+					<div class="barcode"><img src="data:image/Jpeg;base64, <#= labelItem.Product.BarCodeImageBase64 #>" /></div>
+					<div class="price"><p> &#163;<#= labelItem.Product.Price #></p></div>
 				</div>
-				<# } #>
-			<#
-				index++;
-			} 
+
+				<# if(index % 3 == 0) { #> </div> <# } #>
+		<# 
+			index ++;
+		}
 		} #>
-		<h1></h1>
+		</div>
 	</body>
 </html>

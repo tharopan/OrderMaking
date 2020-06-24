@@ -74,6 +74,33 @@ namespace OrderMaking.Mobile.Views
             };
         }
 
+        async void RemoveItem_Clicked(object sender, EventArgs e)
+        {
+            if (viewModel.SelectedCategory == null)
+            {
+                DisplayAlert("Select Category", "Please Select Category", "OK");
+                return;
+            }
+
+            scanPage = new ZXingScannerPage();
+            await Navigation.PushModalAsync(new NavigationPage(scanPage));
+
+            scanPage.OnScanResult += (result) =>
+            {
+                // Stop scanning
+                scanPage.IsScanning = false;
+
+                // Pop the page and show the result
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    //await Navigation.PopAsync();
+                    await Navigation.PopModalAsync();
+                    DidScan(result.Text);
+                    //await DisplayAlert("Scanned Barcode", result.Text, "OK");
+                });
+            };
+        }
+
         async void LoadCategory()
         {
             try
@@ -139,7 +166,6 @@ namespace OrderMaking.Mobile.Views
             catch (Exception ex)
             {
                 DisplayAlert("Scanned Barcode", "Error Occured", "OK");
-                //throw;
             }
             // This callback is called whenever a barcode is decoded.
         }

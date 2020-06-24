@@ -7,6 +7,5 @@ namespace OrderMaking.Mobile.Models
     public class LabelItem
     {
         public string Barcode { get; set; }
-
     }
 }

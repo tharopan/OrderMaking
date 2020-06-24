@@ -115,7 +115,7 @@ namespace OrderMaking.Business
                         orderList = new List<ShoppingCartFlat>();
                     }
 
-                    var mergeFile = $"{rootPath}\\MergedList.csv";
+                    var mergeFile = $"{rootPath}\\ShoppingList.csv";
                     GenerateExcel(mergeFile, mergedOrderList);
                     fileList.Add(mergeFile);
                     SendMail(fileList);
@@ -152,7 +152,7 @@ namespace OrderMaking.Business
         {
             MailMessage mail = new MailMessage()
             {
-                From = new MailAddress("nishalocalconvenientstore@gmail.com", "Nisha Local Convenient Store"),
+                From = new MailAddress("nishalocalconvenientstore@gmail.com", "Nisha Local Convenience Store"),
                 Subject = $"Shopping list for {DateTime.UtcNow.ToShortDateString()}",
                 Body = "<h1>Hi, <br> Find the attached shopping list</h1>",
                 IsBodyHtml = true,
@@ -189,6 +189,6 @@ namespace OrderMaking.Business
         public void MoveCompleted()
         {
             repository.Execute("MoveToCompletedOrder");
-        }
+        }        
     }
 }

@@ -31,157 +31,156 @@ namespace OrderMaking.Templates
         {
             this.Write(@"
 <html>
+<style type=""text/css"">		
 
-	#container {
-	  background-color: red;
-	  overflow: hidden;
-	  width: 261px;
-	  height: 144px;
+	body {
+		position: relative;
+		width: 50rem;
+		height: 70rem;
+		margin: 0px;
+		margin-top: 2.8rem;
+		margin-left: 0rem;
+		color: #001028;
+		background: #FFFFFF;
+		font-size: 14px;
 	}
 
-	#inner {
-	  overflow: hidden;
-	  width: 2000px;
+	.row > div{
+		float: left;
 	}
-
-	.child {
-	  float: left;
-	  background-color: blue;
-	  width: 50px;
-	  height: 50px;
-	}
-
-	.price{
-	  width: 109px;
-	  height: 56px;
-	}
-
-	");
-            
-            #line 35 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
- 
-		int index = 1;
 	
+	.flex-container {
+		padding: 0;
+		margin: 0;
+		list-style: none;
+	}
+	
+	.container {
+		width: 16.6rem;
+		height: 8.91rem;
+		text-align: center;
+		color: white;
+		font-weight: bold;
+		font-size: 4em;
+		text-align: center;
+	}
+	
+	.name {		
+		align-items: center;
+		height: 20px;
+		padding: 7px 0px 14px 0px;
+		font-size: 12px;
+		position: relative;
+	}
+	
+	.name > p {
+		color:black;
+		text-transform: uppercase;
+	}
+	
+	.barcode {
+		margin-top: 6px;
+		position: relative;
+		left: -14%;
+	}
+	
+	.barcode > img {
+		width: 10.6rem;
+		height: 5.9rem;
+	}
+	
+	.price {
+		width: 20mm;
+		height: 10mm;
+		position: relative;
+		margin-top: -75px;
+		margin-left: 48mm;
+	}
+	
+	.price > p {
+		font-size: 20px;
+		color: black;
+	}
+
+	</style>
+
+	<body>
+		<div class=""flex-container"">
+			
+			");
             
-            #line default
-            #line hidden
-            this.Write("\t<body>\r\n\t\t");
-            
-            #line 39 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
+            #line 85 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
  if(LabelItems != null)
 		{
-			foreach (LabelItem labelItem in LabelItems)  { 
+			int index = 1;
+
+			foreach (LabelItem labelItem in LabelItems) 
+			{ 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t");
             
-            #line 42 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
- 
-				if(idex % 3 = 1) {
-				
+            #line 91 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
+ if(index % 3 == 1) { 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t<div class=\"row\">\r\n\t\t\t\t");
+            this.Write(" <div class=\"row\"> ");
             
-            #line 46 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
- } 
+            #line 91 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
+ }
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t<div id=\"container\">\r\n\t\t\t\t  <div id=\"inner\">\r\n\t\t\t\t\t<div class=\"child\">\r\n\t\t\t\t\t" +
-                    "\t<div class=\"name\">");
+            this.Write(" \r\n\t\t\t<div class=\"container\">\t\r\n\t\t\t\t\t<div class=\"name\"><p>");
             
-            #line 50 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
+            #line 94 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(labelItem.Product.Description));
             
             #line default
             #line hidden
-            this.Write("</div>\r\n\t\t\t\t\t\t<div class=\"barcode\"><img src=\"data:image/jpeg;base64 ");
+            this.Write("</p></div>\r\n\t\t\t\t\t<div class=\"barcode\"><img src=\"data:image/Jpeg;base64, ");
             
-            #line 51 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
+            #line 95 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(labelItem.Product.BarCodeImageBase64));
             
             #line default
             #line hidden
-            this.Write("\"/></div>\r\n\t\t\t\t\t\t<div class=\"price\">lableItem.Product.Price</div>\r\n\t\t\t\t\t</div>\t\t\t" +
-                    "\t\r\n\t\t\t\t  </div>\r\n\t\t\t\t</div>\t\t\t\r\n\t\t\t\t");
+            this.Write("\" /></div>\r\n\t\t\t\t\t<div class=\"price\"><p> &#163;");
             
-            #line 56 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
- 
-				if(idex % 3 = 1) {
-				
+            #line 96 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(labelItem.Product.Price));
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t</div>\r\n\t\t\t\t");
+            this.Write("</p></div>\r\n\t\t\t\t</div>\r\n\r\n\t\t\t\t");
             
-            #line 60 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
+            #line 99 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
+ if(index % 3 == 0) { 
+            
+            #line default
+            #line hidden
+            this.Write(" </div> ");
+            
+            #line 99 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\t\t\t");
+            this.Write("\t\t");
             
-            #line 61 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
-
-				index++;
-			} 
+            #line 100 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
+ 
+			index ++;
+		}
 		} 
             
             #line default
             #line hidden
-            this.Write("\t\t<h1></h1>\r\n\t</body>\r\n</html>");
+            this.Write("\t\t</div>\r\n\t</body>\r\n</html>");
             return this.GenerationEnvironment.ToString();
         }
-        
-        #line 1 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
-
-private global::System.Collections.Generic.IList<OrderMaking.Models.LabelItem> _LabelItemsField;
-
-/// <summary>
-/// Access the LabelItems parameter of the template.
-/// </summary>
-private global::System.Collections.Generic.IList<OrderMaking.Models.LabelItem> LabelItems
-{
-    get
-    {
-        return this._LabelItemsField;
-    }
-}
-
-
-/// <summary>
-/// Initialize the template
-/// </summary>
-public virtual void Initialize()
-{
-    if ((this.Errors.HasErrors == false))
-    {
-bool LabelItemsValueAcquired = false;
-if (this.Session.ContainsKey("LabelItems"))
-{
-    this._LabelItemsField = ((global::System.Collections.Generic.IList<OrderMaking.Models.LabelItem>)(this.Session["LabelItems"]));
-    LabelItemsValueAcquired = true;
-}
-if ((LabelItemsValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("LabelItems");
-    if ((data != null))
-    {
-        this._LabelItemsField = ((global::System.Collections.Generic.IList<OrderMaking.Models.LabelItem>)(data));
-    }
-}
-
-
-    }
-}
-
-
-        
-        #line default
-        #line hidden
     }
     
     #line default

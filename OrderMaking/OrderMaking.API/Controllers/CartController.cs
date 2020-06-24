@@ -17,5 +17,10 @@ namespace OrderMaking.API.Controllers
         {
             cartAppService.Add(shoppingCart);
         }
+
+        public void Delete(string barcode)
+        {
+            //cartAppService.Remove(shoppingCart);
+        }
     }
 }

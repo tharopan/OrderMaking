@@ -11,10 +11,20 @@
 
     <ContentPage.Content>
         <StackLayout>
-            <Button Text="Scan"
+            <Button Text="Add"
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="Center"
-                Clicked="ScanItem_Clicked" />
+                Clicked="AddItem_Clicked" />
+
+            <Button Text="Remove"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="Center"
+                Clicked="RemoveItem_Clicked" />
+
+            <Button Text="Remove All"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="Center"
+                Clicked="RemoveAllItems_Clicked" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

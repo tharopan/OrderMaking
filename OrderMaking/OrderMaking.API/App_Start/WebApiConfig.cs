@@ -19,6 +19,12 @@ namespace OrderMaking.API
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            //config.Routes.MapHttpRoute(
+            //    name: "another one with same endpoint",
+            //    routeTemplate: "api/{controller}/{id}#blah2",
+            //    defaults: new { id = RouteParameter.Optional }
+            //);
         }
     }
 }
