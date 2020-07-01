@@ -69,7 +69,7 @@ namespace OrderMaking.Templates
 		align-items: center;
 		height: 20px;
 		padding: 12px 0px 10px 0px;
-		font-size: 14px;
+		font-size: 13px;
 		position: relative;
 	}
 	
