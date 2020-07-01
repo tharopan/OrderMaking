@@ -68,8 +68,8 @@ namespace OrderMaking.Templates
 	.name {		
 		align-items: center;
 		height: 20px;
-		padding: 7px 0px 14px 0px;
-		font-size: 12px;
+		padding: 12px 0px 10px 0px;
+		font-size: 14px;
 		position: relative;
 	}
 	
@@ -79,13 +79,13 @@ namespace OrderMaking.Templates
 	}
 	
 	.barcode {
-		margin-top: 6px;
+		margin-top: 1px;
 		position: relative;
 		left: -14%;
 	}
 	
 	.barcode > img {
-		width: 10.6rem;
+		width: 8.6rem;
 		height: 5.9rem;
 	}
 	
@@ -93,7 +93,7 @@ namespace OrderMaking.Templates
 		width: 20mm;
 		height: 10mm;
 		position: relative;
-		margin-top: -75px;
+		margin-top: -90px;
 		margin-left: 48mm;
 	}
 	
@@ -101,7 +101,6 @@ namespace OrderMaking.Templates
 		font-size: 20px;
 		color: black;
 	}
-
 	</style>
 
 	<body>
@@ -109,7 +108,7 @@ namespace OrderMaking.Templates
 			
 			");
             
-            #line 85 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
+            #line 84 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
  if(LabelItems != null)
 		{
 			int index = 1;
@@ -121,56 +120,56 @@ namespace OrderMaking.Templates
             #line hidden
             this.Write("\t\t\t\t");
             
-            #line 91 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
+            #line 90 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
  if(index % 3 == 1) { 
             
             #line default
             #line hidden
             this.Write(" <div class=\"row\"> ");
             
-            #line 91 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
+            #line 90 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
  }
             
             #line default
             #line hidden
             this.Write(" \r\n\t\t\t<div class=\"container\">\t\r\n\t\t\t\t\t<div class=\"name\"><p>");
             
-            #line 94 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
+            #line 93 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(labelItem.Product.Description));
             
             #line default
             #line hidden
             this.Write("</p></div>\r\n\t\t\t\t\t<div class=\"barcode\"><img src=\"data:image/Jpeg;base64, ");
             
-            #line 95 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
+            #line 94 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(labelItem.Product.BarCodeImageBase64));
             
             #line default
             #line hidden
             this.Write("\" /></div>\r\n\t\t\t\t\t<div class=\"price\"><p> &#163;");
             
-            #line 96 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
+            #line 95 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(labelItem.Product.Price));
             
             #line default
             #line hidden
             this.Write("</p></div>\r\n\t\t\t\t</div>\r\n\r\n\t\t\t\t");
             
-            #line 99 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
+            #line 98 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
  if(index % 3 == 0) { 
             
             #line default
             #line hidden
             this.Write(" </div> ");
             
-            #line 99 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
+            #line 98 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t\t");
             
-            #line 100 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
+            #line 99 "C:\Users\Tharo\source\repos\OrderMaking\OrderMaking\OrderMaking.Templates\LabelItemTemplate.tt"
  
 			index ++;
 		}

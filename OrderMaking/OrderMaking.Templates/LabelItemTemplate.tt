@@ -43,8 +43,8 @@
 	.name {		
 		align-items: center;
 		height: 20px;
-		padding: 7px 0px 14px 0px;
-		font-size: 12px;
+		padding: 12px 0px 10px 0px;
+		font-size: 14px;
 		position: relative;
 	}
 	
@@ -54,13 +54,13 @@
 	}
 	
 	.barcode {
-		margin-top: 6px;
+		margin-top: 1px;
 		position: relative;
 		left: -14%;
 	}
 	
 	.barcode > img {
-		width: 10.6rem;
+		width: 8.6rem;
 		height: 5.9rem;
 	}
 	
@@ -68,7 +68,7 @@
 		width: 20mm;
 		height: 10mm;
 		position: relative;
-		margin-top: -75px;
+		margin-top: -90px;
 		margin-left: 48mm;
 	}
 	
@@ -76,7 +76,6 @@
 		font-size: 20px;
 		color: black;
 	}
-
 	</style>
 
 	<body>
