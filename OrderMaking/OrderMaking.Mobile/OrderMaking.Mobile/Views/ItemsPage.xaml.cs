@@ -68,7 +68,12 @@ namespace OrderMaking.Mobile.Views
                 {
                     //await Navigation.PopAsync();
                     await Navigation.PopModalAsync();
-                    DidScan(result.Text);                    
+
+                    string numberOfItemsResult = await DisplayPromptAsync("Number of Items", "", initialValue: "", maxLength: 3, keyboard: Keyboard.Numeric);
+
+                    int numberOfItems = string.IsNullOrEmpty(numberOfItemsResult) ? 0 : Convert.ToInt32(numberOfItemsResult);
+
+                    DidAddScan(result.Text, numberOfItems);
                     //await DisplayAlert("Scanned Barcode", result.Text, "OK");
                 });
             };
@@ -76,7 +81,6 @@ namespace OrderMaking.Mobile.Views
 
         async void RemoveItem_Clicked(object sender, EventArgs e)
         {
-            
             scanPage = new ZXingScannerPage();
             await Navigation.PushModalAsync(new NavigationPage(scanPage));
 
@@ -100,7 +104,7 @@ namespace OrderMaking.Mobile.Views
         {
             try
             {
-                var httpClient = new HttpClient() { Timeout = TimeSpan.FromMinutes(2)};
+                var httpClient = new HttpClient() { Timeout = TimeSpan.FromMinutes(2) };
 
                 var uri = new Uri($"{Constants.BaseUri}/Category");
 
@@ -129,11 +133,11 @@ namespace OrderMaking.Mobile.Views
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            if(scanPage != null)
+            if (scanPage != null)
                 scanPage.IsScanning = false;
         }
 
-        public async Task DidScan(string barcode)
+        public async Task DidAddScan(string barcode, int numberOfItems)
         {
             try
             {
@@ -143,7 +147,8 @@ namespace OrderMaking.Mobile.Views
                 {
                     Barcode = barcode,
                     CategoryId = viewModel.SelectedCategory.Id,
-                    OrderDate = DateTime.UtcNow
+                    OrderDate = DateTime.UtcNow,
+                    NumberOfItems = numberOfItems
                 };
 
                 var httpClient = new HttpClient() { Timeout = TimeSpan.FromMinutes(2) };

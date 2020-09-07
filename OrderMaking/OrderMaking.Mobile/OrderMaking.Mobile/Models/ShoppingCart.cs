@@ -11,5 +11,7 @@ namespace OrderMaking.Mobile.Models
         public int CategoryId { get; set; }
 
         public DateTime OrderDate { get; set; }
+
+        public int NumberOfItems { get; set; }
     }
 }

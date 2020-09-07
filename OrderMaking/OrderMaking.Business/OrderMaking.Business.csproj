@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="BarcodeLib" Version="2.2.5" />
+    <PackageReference Include="ExcelLibrary" Version="1.2011.7.31" />
     <PackageReference Include="HtmlRenderer.PdfSharp" Version="1.5.0.1" />
     <PackageReference Include="NetBarcode" Version="1.0.8" />
     <PackageReference Include="NReco.PdfGenerator" Version="1.1.15" />

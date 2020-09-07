@@ -20,6 +20,8 @@ namespace OrderMaking.Models.BusinessEntities
 
         public string Barcode { get; set; }
 
+        public int NumberOfItems { get; set; }
+
         public DateTime OrderDate { get; set; }
 
     }
