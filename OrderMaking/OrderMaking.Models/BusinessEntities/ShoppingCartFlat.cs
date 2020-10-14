@@ -22,6 +22,8 @@ namespace OrderMaking.Models.BusinessEntities
 
         public int NumberOfItems { get; set; }
 
+        public string ItemDescription { get; set; }
+
         public DateTime OrderDate { get; set; }
 
     }

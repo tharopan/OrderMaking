@@ -73,10 +73,45 @@ namespace OrderMaking.Mobile.Views
 
                     int numberOfItems = string.IsNullOrEmpty(numberOfItemsResult) ? 0 : Convert.ToInt32(numberOfItemsResult);
 
-                    DidAddScan(result.Text, numberOfItems);
+                    var shoppingCart = new ShoppingCart
+                    {
+                        Barcode = result.Text,
+                        CategoryId = viewModel.SelectedCategory.Id,
+                        OrderDate = DateTime.UtcNow,
+                        NumberOfItems = numberOfItems
+                    };
+
+                    DidAddScan(shoppingCart);
                     //await DisplayAlert("Scanned Barcode", result.Text, "OK");
                 });
             };
+        }
+
+        async void TypeProduct_Clicked(object sender, EventArgs e)
+        {
+            if (viewModel.SelectedCategory == null)
+            {
+                DisplayAlert("Select Category", "Please Select Category", "OK");
+                return;
+            }
+
+            popupProductInputView.IsVisible = true;
+        }
+
+        async void AddItem_Clicked(object sender, EventArgs e)
+        {
+            var shoppingCart = new ShoppingCart
+            {
+                ItemDescription = ItemDescription.Text,
+                CategoryId = viewModel.SelectedCategory.Id,
+                OrderDate = DateTime.UtcNow,
+                NumberOfItems = !string.IsNullOrEmpty(NumberOfItems.Text) ? Convert.ToInt32(NumberOfItems.Text) : 0
+            };
+
+            DidAddScan(shoppingCart);
+            popupProductInputView.IsVisible = false;
+            ItemDescription.Text = "";
+            NumberOfItems.Text = "";
         }
 
         async void RemoveItem_Clicked(object sender, EventArgs e)
@@ -137,19 +172,11 @@ namespace OrderMaking.Mobile.Views
                 scanPage.IsScanning = false;
         }
 
-        public async Task DidAddScan(string barcode, int numberOfItems)
+        public async Task DidAddScan(ShoppingCart shoppingCart)
         {
             try
             {
                 var url = new Uri($"{Constants.BaseUri}/Cart");
-
-                var shoppingCart = new ShoppingCart
-                {
-                    Barcode = barcode,
-                    CategoryId = viewModel.SelectedCategory.Id,
-                    OrderDate = DateTime.UtcNow,
-                    NumberOfItems = numberOfItems
-                };
 
                 var httpClient = new HttpClient() { Timeout = TimeSpan.FromMinutes(2) };
 

@@ -19,62 +19,42 @@
             <Color x:Key="LightTextColor">#999999</Color>
         </ResourceDictionary>
     </ContentPage.Resources>
-    
-    <StackLayout>
-        <Picker Title="Select a Category"
-        TitleColor="Red"
-        ItemsSource="{Binding Categories}"
-        ItemDisplayBinding="{Binding Name}"
-        SelectedItem="{Binding SelectedCategory}" />
 
-        <Button Margin="0,10,0,0" Text="Add to Cart"
+    <ContentPage.Content>
+        <AbsoluteLayout Padding="0" HorizontalOptions="FillAndExpand">
+            <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" IsVisible="true">
+                <Picker Title="Select a Category"
+                    TitleColor="Red"
+                    ItemsSource="{Binding Categories}"
+                    ItemDisplayBinding="{Binding Name}"
+                    SelectedItem="{Binding SelectedCategory}" />
+
+                <Button Margin="0,10,0,0" Text="Add"
                 BackgroundColor="{StaticResource Primary}"
                 TextColor="White"
                 Clicked="ScanItem_Clicked" />
 
-        <Button Margin="0,10,0,0" Text="Remove from Cart"
+                <Button Margin="0,10,0,0" Text="Enter Item"
+                BackgroundColor="{StaticResource Primary}"
+                TextColor="White"
+                Clicked="TypeProduct_Clicked" />
+
+                <Button Margin="0,10,0,0" Text="Remove from Cart"
                 BackgroundColor="{StaticResource Primary}"
                 TextColor="White"
                 Clicked="RemoveItem_Clicked" />
+            </StackLayout>
 
-        <!--<ListView x:Name="ItemsListView"
-                ItemsSource="{Binding Items}"
-                VerticalOptions="FillAndExpand"
-                HasUnevenRows="true"
-                RefreshCommand="{Binding LoadItemsCommand}"
-                IsPullToRefreshEnabled="true"
-                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                CachingStrategy="RecycleElement"
-                ItemSelected="OnItemSelected">
-            <d:ListView.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>Scan Item</x:String>
-                    <x:String>Compose and Send Order</x:String>
-                    <x:String>Third Item</x:String>
-                    <x:String>Forth Item</x:String>
-                    <x:String>Fifth Item</x:String>
-                    <x:String>Sixth Item</x:String>
-                </x:Array>
-            </d:ListView.ItemsSource>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Padding="10">
-                            <Label Text="{Binding Text}" 
-                                d:Text="{Binding .}"
-                                LineBreakMode="NoWrap" 
-                                Style="{DynamicResource ListItemTextStyle}" 
-                                FontSize="16" />
-                            <Label Text="{Binding Description}" 
-                                d:Text="Item descripton"
-                                LineBreakMode="NoWrap"
-                                Style="{DynamicResource ListItemDetailTextStyle}"
-                                FontSize="13" />
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>-->
-    </StackLayout>
+            <ContentView x:Name="popupProductInputView" BackgroundColor="#C0808080" Padding="10, 0" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                    <StackLayout Orientation="Vertical" HeightRequest="200" WidthRequest="300" BackgroundColor="White">
+                        <Entry Margin="20,20,20,10" x:Name="ItemDescription" Placeholder="Enter Item Description"></Entry>
+                        <Entry Margin="20,0,20,0" x:Name="NumberOfItems" Placeholder="Enter Number of Items" Keyboard="Numeric" MaxLength="3"></Entry>
+                        <Button Margin="20,0,20,0" Text="Add" Clicked="AddItem_Clicked"></Button>
+                    </StackLayout>
+                </StackLayout>
+            </ContentView>
+        </AbsoluteLayout>
 
+    </ContentPage.Content>
 </ContentPage>

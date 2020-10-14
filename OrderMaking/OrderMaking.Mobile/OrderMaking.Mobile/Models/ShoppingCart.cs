@@ -12,6 +12,8 @@ namespace OrderMaking.Mobile.Models
 
         public DateTime OrderDate { get; set; }
 
+        public string ItemDescription { get; set; }
+
         public int NumberOfItems { get; set; }
     }
 }

@@ -63,6 +63,11 @@ namespace OrderMaking.Business
                     }
                 }
             }
+            else if (!string.IsNullOrEmpty(shoppingCart.ItemDescription))
+            {
+                repository.Insert(shoppingCart);
+                repository.Save();
+            }
         }
 
         public void Remove(string barcode)

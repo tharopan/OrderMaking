@@ -1,4 +1,5 @@
-﻿using OrderMaking.Data;
+﻿using ExcelLibrary.SpreadSheet;
+using OrderMaking.Data;
 using OrderMaking.Models;
 using OrderMaking.Models.BusinessEntities;
 using System;
@@ -48,20 +49,20 @@ namespace OrderMaking.Business
                             {
                                 //CustomOrder = item.Product.CustomOrder,
                                 OrderDate = item.OrderDate,
-                                ProductPrice = item.Product.Price,
+                                ProductPrice = item.Product?.Price ?? 0,
                                 //ProductCategoryId = groupedItem.Key,
                                 ProductCategoryName = groupedItem.Key,
-                                ProductId = item.Product.Id,
-                                ProductName = item.Product.Description,
-                                ProductSize = item.Product.SizeGroup,
-                                Barcode = item.Product.BarCode,
+                                ProductId = item.Product?.Id ?? 0,
+                                ProductName = item.Product == null ? item.ItemDescription : item.Product.Description,
+                                ProductSize = item.Product?.SizeGroup,
+                                Barcode = item.Product?.BarCode,
                                 NumberOfItems = item.NumberOfItems
                             });
                         }
 
                         var file = $"{rootPath}\\{fileName}.csv";
                         fileList.Add(file);
-                        GenerateExcel(file, orderList);
+                        GenerateCSV(file, orderList);
 
                         orderList = new List<ShoppingCartFlat>();
                     }
@@ -98,20 +99,20 @@ namespace OrderMaking.Business
                             {
                                 //CustomOrder = item.Product.CustomOrder,
                                 OrderDate = item.OrderDate,
-                                ProductPrice = item.Product.Price,
+                                ProductPrice = item.Product?.Price ?? 0,
                                 //ProductCategoryId = groupedItem.Key,
                                 ProductCategoryName = groupedItem.Key,
-                                ProductId = item.Product.Id,
-                                ProductName = item.Product.Description,
-                                ProductSize = item.Product.SizeGroup,
-                                Barcode = item.Product.BarCode,
+                                ProductId = item.Product?.Id ?? 0,
+                                ProductName = item.Product == null ? item.ItemDescription : item.Product.Description,
+                                ProductSize = item.Product?.SizeGroup,
+                                Barcode = item.Product?.BarCode,
                                 NumberOfItems = item.NumberOfItems
                             });
                         }
 
                         var file = $"{rootPath}\\{groupedItem.Key}.csv";
                         //fileList.Add(file);
-                        GenerateExcel(file, orderList);
+                        GenerateCSV(file, orderList);
                         mergedOrderList.AddRange(orderList);
                         mergedOrderList.Add(new ShoppingCartFlat() { });
                         //mergedOrderList.Add(new ShoppingCartFlat() { ProductName = groupedItem.Key });
@@ -119,27 +120,14 @@ namespace OrderMaking.Business
                     }
 
                     var mergeFile = $"{rootPath}\\ShoppingList.csv";
-                    GenerateExcel(mergeFile, mergedOrderList);
+                    GenerateCSV(mergeFile, mergedOrderList);
+
                     var mergeFileExcel = $"{rootPath}\\ShoppingList.xls";
+                    GenerateExcel(mergeFileExcel, mergedOrderList);
 
-                    //string worksheetsName = "TEST";
+                    //fileList.Add(mergeFile);
+                    fileList.Add(mergeFileExcel);
 
-                    //bool firstRowIsHeader = false;
-
-                    //var format = new ExcelTextFormat();
-                    //format.Delimiter = ',';
-                    //format.EOL = "\r";
-                    //// DEFAULT IS "\r\n";
-                    //// format.TextQualifier = '"';
-
-                    //using (ExcelPackage package = new ExcelPackage(new FileInfo(mergeFileExcel)))
-                    //{
-                    //    ExcelWorksheet worksheet = package.Workbook.Worksheets.Add(worksheetsName);
-                    //    worksheet.Cells["A1"].LoadFromText(new FileInfo(mergeFile), format, OfficeOpenXml.Table.TableStyles.Medium27, firstRowIsHeader);
-                    //    package.Save();
-                    //}
-
-                    fileList.Add(mergeFile);
                     SendMail(fileList);
                     MoveCompleted();
                 }
@@ -156,7 +144,41 @@ namespace OrderMaking.Business
 
         public void GenerateExcel(string file, IList<ShoppingCartFlat> orderList)
         {
+            Workbook workbook = new Workbook();
+            Worksheet worksheet = new Worksheet("Shopping List");
 
+            for (int i = 0; i < 100; i++)
+                worksheet.Cells[i, 0] = new Cell("");
+
+            //Adding Heading
+            worksheet.Cells[0, 0] = new Cell("Product Name");
+            worksheet.Cells[0, 1] = new Cell("Size");
+            worksheet.Cells[0, 2] = new Cell("Number of Items");
+            worksheet.Cells[0, 3] = new Cell("Selling Price");
+            worksheet.Cells[0, 4] = new Cell("Barcode");
+            worksheet.Cells.ColumnWidth[0, 0] = 7000;
+            worksheet.Cells.ColumnWidth[4, 4] = 3500;
+
+
+            //After a heading
+            int row = 1;
+
+            foreach (var shopingCart in orderList)
+            {
+                worksheet.Cells[row, 0] = new Cell(shopingCart.ProductName);
+                worksheet.Cells[row, 1] = new Cell(shopingCart.ProductSize);
+                worksheet.Cells[row, 2] = new Cell(shopingCart.NumberOfItems);
+                worksheet.Cells[row, 3] = new Cell(shopingCart.ProductPrice);
+                worksheet.Cells[row, 4] = new Cell(shopingCart.Barcode);
+                row++;
+            }
+
+            workbook.Worksheets.Add(worksheet);
+            workbook.Save(file);
+        }
+
+        public void GenerateCSV(string file, IList<ShoppingCartFlat> orderList)
+        {
             string delimiter = ",";
             StringBuilder sb = new StringBuilder();
 
@@ -164,7 +186,7 @@ namespace OrderMaking.Business
             sb.AppendLine(clientHeader);
             foreach (var item in orderList)
             {
-                sb.AppendLine($"{item.ProductName }{delimiter }{ item.ProductSize}{delimiter}{item.ProductPrice} {delimiter} {item.NumberOfItems} {delimiter}{item.Barcode}");
+                sb.AppendLine($"{item.ProductName }{delimiter }{ item.ProductSize}{delimiter}{item.NumberOfItems} {delimiter} {item.ProductPrice} {delimiter}{item.Barcode}");
             }
 
             File.WriteAllText(file, sb.ToString());

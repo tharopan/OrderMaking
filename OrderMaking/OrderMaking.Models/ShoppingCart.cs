@@ -11,10 +11,12 @@ namespace OrderMaking.Models
 
         public DeprecatedCategory Category { get; set; }
 
-        public long ProductId { get; set; }
+        public long? ProductId { get; set; }
 
         [NotMapped]
         public string Barcode { get; set; }
+
+        public string ItemDescription { get; set; }
 
         public DeprecatedProduct Product { get; set; }
 
