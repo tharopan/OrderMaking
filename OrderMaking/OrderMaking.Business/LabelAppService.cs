@@ -19,7 +19,7 @@ using NetBarcode;
 
 namespace OrderMaking.Business
 {
-    public class LabelAppService
+    public class LabelAppService : AppService
     {
         Repository<LabelItem> repository;
         Repository<DeprecatedProduct> productRepository;
@@ -103,7 +103,7 @@ namespace OrderMaking.Business
             BarcodeLib.Barcode barcode = new BarcodeLib.Barcode();
 
             //System.IO.Directory.CreateDirectory($"C:/order/TempLabel/{DateTime.Now.ToString("MMddyyyy")}");
-            System.IO.Directory.CreateDirectory($"C:/order/Label/{DateTime.Now.ToString("MMddyyyy")}");
+            System.IO.Directory.CreateDirectory($"C:/order/Label");
 
             if (labelItems != null)
             {
@@ -166,7 +166,12 @@ namespace OrderMaking.Business
                     page++;
                 }
 
-                pdfDoc.Save($@"C:/order/Label/{DateTime.Now.ToString("MMddyyyy")}_label.pdf");
+                var fileName = $@"C:/order/Label/{DateTime.Now.ToString("MMddyyyy")}_label.pdf";
+
+                pdfDoc.Save(fileName);
+
+                SendMail(new List<string>() { fileName }, $"Lables - {DateTime.UtcNow.ToShortDateString()}");
+
             }
         }
 

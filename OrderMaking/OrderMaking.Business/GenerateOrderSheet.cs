@@ -13,7 +13,7 @@ using System.Text;
 
 namespace OrderMaking.Business
 {
-    public class GenerateOrderSheet
+    public class GenerateOrderSheet : AppService
     {
         Repository<ShoppingCart> repository;
 
@@ -67,7 +67,7 @@ namespace OrderMaking.Business
                         orderList = new List<ShoppingCartFlat>();
                     }
 
-                    SendMail(fileList);
+                    SendMail(fileList, $"Cigarrets for {DateTime.UtcNow.ToShortDateString()}");
                 }
             }
         }
@@ -128,7 +128,7 @@ namespace OrderMaking.Business
                     //fileList.Add(mergeFile);
                     fileList.Add(mergeFileExcel);
 
-                    SendMail(fileList);
+                    SendMail(fileList, $"Shopping list for {DateTime.UtcNow.ToShortDateString()}");
                     MoveCompleted();
                 }
             }
@@ -156,9 +156,8 @@ namespace OrderMaking.Business
             worksheet.Cells[0, 2] = new Cell("Number of Items");
             worksheet.Cells[0, 3] = new Cell("Selling Price");
             worksheet.Cells[0, 4] = new Cell("Barcode");
-            worksheet.Cells.ColumnWidth[0, 0] = 7000;
+            worksheet.Cells.ColumnWidth[0, 0] = 7100;
             worksheet.Cells.ColumnWidth[4, 4] = 3500;
-
 
             //After a heading
             int row = 1;
@@ -192,43 +191,7 @@ namespace OrderMaking.Business
             File.WriteAllText(file, sb.ToString());
         }
 
-        public void SendMail(IList<string> files)
-        {
-            MailMessage mail = new MailMessage()
-            {
-                From = new MailAddress("nishalocalconvenientstore@gmail.com", "Nisha Local Convenience Store"),
-                Subject = $"Shopping list for {DateTime.UtcNow.ToShortDateString()}",
-                Body = "<h1>Hi, <br> Find the attached shopping list</h1>",
-                IsBodyHtml = true,
-            };
-
-            var toAddressesStr = ConfigurationManager.AppSettings["ToAddresses"];
-            if (string.IsNullOrEmpty(toAddressesStr))
-            {
-                var toAddresses = toAddressesStr.Split(';');
-                foreach (var toAddress in toAddresses)
-                {
-                    mail.To.Add(toAddress);
-                }
-            }
-
-            mail.To.Add(new MailAddress("tharopan@hotmail.com"));
-            mail.To.Add(new MailAddress("ravi.chandran69@outlook.com"));
-
-            foreach (var file in files)
-            {
-                mail.Attachments.Add(new Attachment(file));
-            }
-
-            using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
-            {
-                smtp.UseDefaultCredentials = false;
-                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                smtp.Credentials = new NetworkCredential("nishalocalconvenientstore@gmail.com", "thisismystore");
-                smtp.EnableSsl = true;
-                smtp.Send(mail);
-            }
-        }
+        
 
         public void MoveCompleted()
         {

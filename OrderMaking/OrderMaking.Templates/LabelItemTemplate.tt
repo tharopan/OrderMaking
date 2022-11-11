@@ -54,22 +54,22 @@
 	}
 	
 	.barcode {
-		margin-top: 1px;
+		margin-top: 7px;
 		position: relative;
-		left: -14%;
+		left: -23%;
 	}
 	
 	.barcode > img {
-		width: 8.6rem;
-		height: 5.9rem;
+		width: 6.6rem;
+		height: 3.8rem;
 	}
 	
 	.price {
 		width: 20mm;
 		height: 10mm;
 		position: relative;
-		margin-top: -90px;
-		margin-left: 48mm;
+		margin-top: -65px;
+		margin-left: 38mm;
 	}
 	
 	.price > p {
